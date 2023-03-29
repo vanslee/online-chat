@@ -20,78 +20,10 @@
         </template>
       </van-skeleton>
     </div>
-
-    <div v-else class="scroll-container">
-      <van-row style="height: 2rem" align="center">
-        <Progress v-show="uploadPercent !== 0" :percentage="uploadPercent" />
-      </van-row>
-      <van-row
-        v-for="message in messageList"
-        v-bind:key="message.sendTime"
-        style="
-          margin: 1rem 0 1rem 0;
-          display: flex;
-          justify-content: space-between;
-        "
-      >
-        <!-- 如果是别人发送的聊天框就在左边 -->
-        <template v-if="message.senderId != userId">
-          <van-space align="center" style="background: #f3f2f5">
-            <van-image
-              round
-              width="2rem"
-              height="2rem"
-              fit="cover"
-              :src="store.userInfo.avatarImg"
-            />
-            <video
-              muted="true"
-              controls="true"
-              v-if="message.contentType == 'video/mp4'"
-              :src="message.content"
-              style="
-                object-fit: cover;
-                border-radius: 1rem;
-                margin-left: 1rem;
-                width: 10rem;
-                height: 8rem;
-              "
-            />
-            <span v-else>{{ message.content }}</span>
-          </van-space>
-        </template>
-        <!-- 如果是别人发送的聊天框就在右边 -->
-        <template v-else>
-          <div></div>
-          <van-space align="center" style="background: #f3f2f5">
-            <video
-              muted="true"
-              controls="true"
-              v-if="message.contentType == 'video/mp4'"
-              :src="message.content"
-              style="
-                object-fit: cover;
-                border-radius: 1rem;
-                margin-left: 1rem;
-                width: 10rem;
-                height: 8rem;
-              "
-            />
-            <span v-else>{{ message.content }}</span>
-
-            <div>
-              <van-image
-                round
-                width="2rem"
-                height="2rem"
-                fit="cover"
-                :src="localUser.avatarImg"
-              />
-            </div>
-          </van-space>
-        </template>
-      </van-row>
+    <div class="chat-box">
+      <chat-bubble :messsage="message" />
     </div>
+
     <van-row style="margin-top: 1rem">
       <van-col :span="3" align="center" style="margin-right: 1rem">
         <Uploader
@@ -136,6 +68,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import ChatBubble from "@/components/chat/bubble/ChatBubble.vue";
 import { ref, reactive, onMounted, computed } from "vue";
 import { uploadFile, DOMAIN } from "@/utils/qiniu";
 import { useStore } from "@/store/chat/ChatPinia";
@@ -257,7 +190,7 @@ const base64ToVedioUrl = (base64Str: string, type: string): string => {
 };
 </script>
 <style scoped>
-.scroll-container {
+.chat-box {
   background-color: dimgrey;
   height: 30rem;
   overflow: hidden;
