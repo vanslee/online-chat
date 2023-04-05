@@ -9,12 +9,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/private-chat",
     name: "private-chat",
-    component: () => import("@/components/chat/private/private-chat-item.vue"),
-  },
-  {
-    path: "/test",
-    name: "bubble",
-    component: () => import("@/components/chat/bubble/ChatBubble.vue"),
+    component: () => import("@/components/chat/private/PrivateChat.vue"),
   },
 ];
 

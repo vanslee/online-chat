@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>text</div>
 </template>
 <script setup lang="ts">
 import { ref, reactive } from "vue";

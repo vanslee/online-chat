@@ -36,7 +36,8 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "src/socket/socket.js"
+    "src/socket/socket.ts",
+    "@types/chat_type.ts"
   ],
   "exclude": [
     "node_modules"
